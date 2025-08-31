@@ -8,6 +8,11 @@
             "KSeven\\DevTools\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "KSeven\\DevTools\\Tests\\": "tests/"
+        }
+    },
     "extra": {
         "laravel": {
             "providers": [
@@ -23,6 +28,31 @@
     "require-dev": {
         "fakerphp/faker": "^1.23",
         "barryvdh/laravel-debugbar": "^3.8",
+        "phpunit/phpunit": "^10.0",
         "nunomaduro/collision": "^7.0"
-    }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "@php artisano.php install"
+        ],
+        "post-update-cmd": [
+            "@php artisano.php update"
+        ],
+        "post-root-package-install": [
+            "@php artisano.php"
+        ],
+        "test": "vendor\\bin\\phpunit --testdox",
+        "admin": "php run.php"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "php-http/discovery": true
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

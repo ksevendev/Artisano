@@ -3,10 +3,10 @@ namespace KSeven\DevTools\Tests\Commands;
 
 use PHPUnit\Framework\TestCase;
 
-class DbStatusCommandTest extends TestCase
+class ListCommandTest extends TestCase
 {
     public function testExample()
     {
-        $this->assertTrue(true, 'DbStatusCommand test placeholder');
+        $this->assertTrue(true, 'ListCommand test placeholder');
     }
 }
