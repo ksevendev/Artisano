@@ -21,14 +21,14 @@
         }
     },
     "require": {
-        "php": ">=8.0",
+        "php": ">=8.0 <8.5",
         "illuminate/console": "^10.0|^11.0",
         "symfony/console": "^6.4"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
         "barryvdh/laravel-debugbar": "^3.8",
-        "phpunit/phpunit": "^10.0",
+        "phpunit/phpunit": "^10.5 || ^11.0",
         "nunomaduro/collision": "^7.0"
     },
     "scripts": {
@@ -41,7 +41,7 @@
         "post-root-package-install": [
             "@php artisano.php"
         ],
-        "test": "vendor\\bin\\phpunit --testdox",
+        "test": "vendor/bin/phpunit --testdox",
         "admin": "php run.php"
     },
     "config": {
