@@ -1,63 +1,66 @@
-# Laravel DevTools Pro
+# Artisano CLI - Laravel DevTools
 
-Biblioteca de comandos Laravel + CLI Artisano.
+**Artisano CLI** é uma biblioteca PHP/Laravel para desenvolvimento avançado, fornecendo uma alternativa ao Artisan, com comandos extras e funcionalidades de desenvolvimento e gerenciamento de projetos Laravel ou outros projetos PHP.
 
-## Instalação
+---
+
+## 💻 Requisitos
+
+- PHP >= 8.0
+- Laravel 10.x ou 11.x
+- Composer
+- Symfony Console ^6.4
+
+---
+
+## ⚡ Instalação
 
 \`\`\`bash
-composer require kseven/laravel-devtools
-php artisan vendor:publish --tag=devtools-artisano
+composer require kseven/artisano
 \`\`\`
 
-## Comandos disponíveis
+---
 
-- db:status
-- logs:tail
-- logs:watch
-- db:faker
-- tinker:dev
-- make:model
-- make:controller
-- make:service
-- status:app
-- cache:clear-all
-- routes:list-color
-- env:show
-- queue:status
-- jobs:pending
-- test:run
-- make:factory
-- make:seeder
-- make:policy
-- make:command
-- migrate:refresh-fake
-- db:backup
-- db:restore
-- debug:tables
-- session:clear
-- user:create
-- permission:sync
-- storage:link-force
-- log:rotate
-- composer:update-check
-
-## Configuração
-
-Arquivo \`config/devtools.php\`:
-
-\`\`\`php
-return [
-    'developer_mode' => env('DEVTOOLS_DEVELOPER', false),
-];
-\`\`\`
-
-> Somente com \`DEVTOOLS_DEVELOPER=true\` os comandos avançados são executáveis.
-
-## Uso CLI Artisano
+## 🛠 Comandos disponíveis (Artisano CLI)
 
 \`\`\`bash
 php artisano list
+php artisano generate:docs
 php artisano db:status
-php artisano logs:watch
-php artisano make:model User
+php artisano update
 \`\`\`
+
+---
+
+## 📦 Scripts Composer
+
+\`\`\`bash
+composer test
+composer docs
+\`\`\`
+
+---
+
+## 📖 Documentação
+
+[Documentação completa](https://ksevendev.github.io/Artisano/)
+
+---
+
+## 🧪 Testes
+
+\`\`\`bash
+composer test
+\`\`\`
+
+Cobertura HTML:
+
+\`\`\`bash
+vendor/bin/phpunit --coverage-html coverage
+\`\`\`
+
+---
+
+## ⚖️ Licença
+
+MIT License © K'Seven DevTools
