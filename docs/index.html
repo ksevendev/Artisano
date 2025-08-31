@@ -60,13 +60,16 @@ php artisan vendor:publish --tag=devtools-artisano</code></pre>
 <pre><code>return [
     'developer_mode' => env('DEVTOOLS_DEVELOPER', false),
 ];</code></pre>
-<p>Somente com <code>DEVTOOLS_DEVELOPER=true</code> os comandos avançados são executáveis.</p>
 
 <h2>Uso CLI Artisano</h2>
 <pre><code>php artisano list
 php artisano db:status
 php artisano logs:watch
 php artisano make:model User</code></pre>
+
+<h2>Testes</h2>
+<p>Execute todos os testes:</p>
+<pre><code>vendor/bin/phpunit --testdox</code></pre>
 
 </body>
 </html>

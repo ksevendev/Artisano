@@ -1,15 +1,24 @@
 <?php
 /**
- * run.php - Gera pasta docs com HTML e README.md para Laravel DevTools Pro + Artisano CLI
+ * run.php - Gera docs, README.md, testes e GitHub Actions para Laravel DevTools Pro + Artisano CLI
  */
 
 // ---------------- Configurações ----------------
 $docsDir = __DIR__ . '/docs';
-@mkdir($docsDir, 0777, true);
+$testsDir = __DIR__ . '/tests/Commands';
+$ghDir = __DIR__ . '/.github/workflows';
 
-// ---------------- README.md --------------------
+@mkdir($docsDir, 0777, true);
+@mkdir($testsDir, 0777, true);
+@mkdir($ghDir, 0777, true);
+
+// ---------------- README.md com badges --------------------
 $readmeContent = <<<MD
 # Laravel DevTools Pro
+
+![PHP](https://img.shields.io/badge/PHP-8.1%2B-blue)
+![License](https://img.shields.io/badge/License-MIT-green)
+![Build](https://github.com/SEU_USUARIO/laravel-devtools/actions/workflows/ci.yml/badge.svg)
 
 Biblioteca de comandos Laravel + CLI Artisano.
 
@@ -71,6 +80,14 @@ php artisano list
 php artisano db:status
 php artisano logs:watch
 php artisano make:model User
+\`\`\`
+
+## Testes
+
+Execute todos os testes com:
+
+\`\`\`bash
+vendor/bin/phpunit --testdox
 \`\`\`
 MD;
 
@@ -140,7 +157,6 @@ php artisan vendor:publish --tag=devtools-artisano</code></pre>
 <pre><code>return [
     'developer_mode' => env('DEVTOOLS_DEVELOPER', false),
 ];</code></pre>
-<p>Somente com <code>DEVTOOLS_DEVELOPER=true</code> os comandos avançados são executáveis.</p>
 
 <h2>Uso CLI Artisano</h2>
 <pre><code>php artisano list
@@ -148,11 +164,66 @@ php artisano db:status
 php artisano logs:watch
 php artisano make:model User</code></pre>
 
+<h2>Testes</h2>
+<p>Execute todos os testes:</p>
+<pre><code>vendor/bin/phpunit --testdox</code></pre>
+
 </body>
 </html>
 HTML;
 
 file_put_contents($docsDir.'/index.html', $htmlContent);
 
+// ---------------- Testes básicos -------------------
+$sampleTest = <<<PHP
+<?php
+namespace KSeven\DevTools\Tests\Commands;
+
+use PHPUnit\Framework\TestCase;
+use Symfony\Component\Console\Tester\CommandTester;
+use KSeven\DevTools\Commands\DbStatusCommand;
+
+class DbStatusCommandTest extends TestCase
+{
+    public function testRunsSuccessfully()
+    {
+        \$command = new DbStatusCommand();
+        \$tester = new CommandTester(\$command);
+        \$tester->execute([]);
+        \$output = \$tester->getDisplay();
+        \$this->assertStringContainsString('Executando DbStatusCommand', \$output);
+    }
+}
+PHP;
+
+file_put_contents($testsDir.'/DbStatusCommandTest.php', $sampleTest);
+
+// ---------------- GitHub Actions CI -------------------
+$ciYaml = <<<YAML
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.1
+      - name: Install dependencies
+        run: composer install
+      - name: Run Tests
+        run: vendor/bin/phpunit --testdox
+YAML;
+
+file_put_contents($ghDir.'/ci.yml', $ciYaml);
+
 // ---------------- Conclusão --------------------
-echo "✅ Pasta docs/ com README.md e index.html gerados com sucesso!\n";
+echo "✅ docs/, README.md, testes e GitHub Actions CI gerados com sucesso!\n";
